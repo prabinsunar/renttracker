@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- CoreUI CSS -->
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css"
+		/>
+
+		<title><%= title %></title>
+	</head>
+	<body class="c-app">
+		<div
+			class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show"
+			id="sidebar"
+		>
+			<%- include('partials/sidebar.ejs')%>
+		</div>
+		<div class="c-wrapper c-fixed-components">
+			<header
+				class="c-header c-header-dark c-header-fixed c-header-with-subheader"
+			>
+				<%- include('partials/header.ejs')%>
+			</header>
+			<div class="c-body">
+				<main class="c-main">
+					<div class="container-fluid">
+						<div class="fade-in">
+							<div
+								class="card bg-light border-dark mb-3"
+								style="max-width: 18rem"
+							>
+								<div class="card-header"><h5><%= title%></h5></div>
+								<div class="card-body">
+									<p class="card-text">Unit no.: <%= apartment.unit_no%></p>
+									<p class="card-text">Status: <%= apartment.status%></p>
+									<p class="card-text">
+										Full address: Unit <%= apartment.unit_no%>,<%=
+										apartment.house.address%>
+									</p>
+									<%if(tenant) {%>
+									<p class="card-text">Occupied by: <%= tenant.name%></p>
+									<p class="card-text">
+										Moved-in date: <%= tenant.formatted_occupancy_date%>
+									</p>
+									<%}%>
+									<hr />
+									<a
+										id="update"
+										class="btn btn-primary"
+										href="<%= apartment.url%>/update"
+										>Update</a
+									>
+
+									<a
+										id="delete"
+										class="btn btn-danger"
+										href="<%= apartment.url%>/delete"
+										>Delete</a
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+				</main>
+			</div>
+		</div>
+		<!-- Optional JavaScript -->
+		<!-- Popper.js first, then CoreUI JS -->
+		<script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+	</body>
+</html>
+
+<!-- this is where it changes -->

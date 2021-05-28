@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- CoreUI CSS -->
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css"
+		/>
+		<title><%= title %></title>
+	</head>
+	<body class="c-app">
+		<div
+			class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show"
+			id="sidebar"
+		>
+			<%- include('partials/sidebar.ejs')%>
+		</div>
+		<div class="c-wrapper c-fixed-components">
+			<header
+				class="c-header c-header-dark c-header-fixed c-header-with-subheader"
+			>
+				<%- include('partials/header.ejs')%>
+			</header>
+			<div class="c-body">
+				<main class="c-main">
+					<div class="container-fluid">
+						<div class="fade-in">
+							<h1><%= title%></h1>
+							<div>
+								<h6>Name: <%= tenant.name%></h6>
+								<h6>Phone: <%= tenant.phone%></h6>
+								<h6>Email: <%= tenant.email%></h6>
+								<h6>Moved in date: <%= tenant.formatted_movedin_date%></h6>
+								<%for(let apartment of apartments) {%> <%
+								if(tenant.apartment_occupied._id.toString() ===
+								apartment._id.toString()) {%>
+								<h6>
+									Apartment address:
+									<a href="<%= apartment.url%>"
+										><%= tenant.apartment_occupied.unit_no%>, <%=
+										apartment.house.address%></a
+									>
+								</h6>
+								<%}%><%}%>
+								<hr />
+							</div>
+							<h4>Are you sure to delete this tenant?</h4>
+							<form action="" method="POST">
+								<div class="form-group">
+									<input
+										class="form-control"
+										name="tenantid"
+										type="hidden"
+										value="<%= tenant._id%>"
+										required="true"
+									/>
+									<input
+										name="apartmentid"
+										type="hidden"
+										value="<%= tenant.apartment_occupied._id %>"
+									/>
+								</div>
+								<button class="btn btn-primary" type="submit">Submit</button>
+							</form>
+						</div>
+					</div>
+				</main>
+			</div>
+		</div>
+		<!-- Optional JavaScript -->
+		<!-- Popper.js first, then CoreUI JS -->
+		<script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+	</body>
+</html>
+
+<!-- this is where it changes -->

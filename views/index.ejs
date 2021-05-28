@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- CoreUI CSS -->
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css"
+		/>
+
+		<title><%= title %></title>
+	</head>
+	<body class="c-app">
+		<div
+			class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show"
+			id="sidebar"
+		>
+			<%- include('partials/sidebar.ejs')%>
+		</div>
+		<div class="c-wrapper c-fixed-components">
+			<header
+				class="c-header c-header-dark c-header-fixed c-header-with-subheader"
+			>
+				<%- include('partials/header.ejs')%>
+			</header>
+			<div class="c-body">
+				<main class="c-main">
+					<div class="container-fluid">
+						<div class="fade-in">
+							<div class="row">
+								<div class="col-sm-6">
+									<h4>Rents due tomorrow or today:</h4>
+									<ul class="list-group">
+										<%if(dues.length>0){%> <%dues.forEach(element => {%>
+										<%if(element.tracker ===0 ){%>
+										<li
+											class="w-75 list-group-item list-group-item-secondary h6"
+										>
+											Rent for Unit <%= element.apartment%> is due today.
+										</li>
+										<%}else if(element.tracker === -1){%>
+										<li class="w-75 list-group-item list-group-item-light h6">
+											Rent for Unit <%= element.apartment%> is due tomorrow.
+										</li>
+										<% }else{%>
+										<li class="w-75 list-group-item list-group-item-dark h6">
+											Rent for Unit <%= element.apartment%> is due past <%=
+											element.tracker%> days.
+										</li>
+										<%}%> <%})%> <%}else{%>
+										<h6>No rents due.</h6>
+										<%}%>
+									</ul>
+								</div>
+								<div class="col-sm-6">
+									<!-- break here-->
+									<h4>Rents not paid:</h4>
+									<ul class="list-group list-unstyled h6">
+										<%if(overDues.length > 0) {%> <% for(let am of
+										apartments){%> <% for(let od of overDues) {%>
+										<%if(am._id.toString() === od.over_dues._id.toString()){ %>
+
+										<form action="" method="POST">
+											<input
+												class="form-control"
+												name="overDueid"
+												type="hidden"
+												value="<%= am._id%>"
+												required="true"
+											/>
+											<li
+												class="w-50 list-group-item list-group-item-secondary"
+											>
+												<p class="d-lg-inline">
+													Unit <%= od.over_dues.unit_no%>, <%=am.house.address%>
+													&nbsp; &nbsp;
+												</p>
+
+												<button class="btn btn-primary" type="submit">
+													Paid
+												</button>
+											</li>
+										</form>
+
+										<br />
+										<%}%> <%}%> <%}%><%}else{%>
+									</ul>
+									<h6>All rents are paid.</h6>
+									<%}%>
+								</div>
+							</div>
+							<hr />
+							<div class="row">
+								<div class="col-sm-12">
+									<h4 class="float-left">Recent payments:</h4>
+									<%if(meets.length >=7) {%>
+									<button type="button" class="btn btn-info float-right h6">
+										<a
+											style="
+												color: whitesmoke;
+												text-decoration: none;
+												font-size: medium;
+											"
+											href="/payments"
+											>See all payments history</a
+										>
+									</button>
+									<%}%><%if(meets.length > 0) {%>
+									<table class="table table-responsive-sm table-striped">
+										<thead class="thead-dark">
+											<tr>
+												<th scope="col">Tenant's name</th>
+												<th scope="col">Tenant's phone</th>
+												<th scope="col">Apartment</th>
+												<th scope="col">Date paid</th>
+											</tr>
+										</thead>
+										<tbody>
+											<%if(meets.length >= 6) {%> <% for(let i = meets.length
+											-1; i >= meets.length-6; i--){%>
+											<tr>
+												<td><%= meets[i].tenant_name%></td>
+												<td><%= meets[i].tenant_phone%></td>
+												<td>Unit <%= meets[i].apartment%></td>
+												<td><%= meets[i].formatted_date_paid%></td>
+											</tr>
+											<%}%><%}else{%> <% for(let i = meets.length -1; i >= 0;
+											i--){%>
+											<tr>
+												<td><%= meets[i].tenant_name%></td>
+												<td><%= meets[i].tenant_phone%></td>
+												<td>Unit <%= meets[i].apartment%></td>
+												<td><%= meets[i].formatted_date_paid%></td>
+											</tr>
+											<%}%><%}%>
+										</tbody>
+									</table>
+									<%}else{%>
+									<h4 class="text-center">No payments recorded yet.</h4>
+									<%}%>
+								</div>
+							</div>
+						</div>
+					</div>
+				</main>
+			</div>
+		</div>
+		<script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+	</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- CoreUI CSS -->
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css"
+		/>
+		<title><%= title %></title>
+	</head>
+	<body class="c-app">
+		<div
+			class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show"
+			id="sidebar"
+		>
+			<%- include('partials/sidebar.ejs')%>
+		</div>
+		<div class="c-wrapper c-fixed-components">
+			<header
+				class="c-header c-header-dark c-header-fixed c-header-with-subheader"
+			>
+				<%- include('partials/header.ejs')%>
+			</header>
+			<div class="c-body">
+				<main class="c-main">
+					<div class="container-fluid">
+						<div class="fade-in">
+							<div><%- include('error.ejs')%></div>
+							<h1><%= title%></h1>
+							<form action="" method="POST">
+								<div class="form-group">
+									<label for="unit_no">Unit_no</label>
+									<input
+										id="unit_no"
+										class="form-control"
+										name="unit_no"
+										type="number"
+										value="<%= apartment ? apartment.unit_no : '' %>"
+										required="true"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="status">Status</label>
+									<select
+										id="status"
+										class="form-control"
+										name="status"
+										type="select"
+										required="true"
+									>
+										<option value="Vacant">Vacant</option>
+										<option value="Occupied">Occupied</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="house">House</label>
+									<select
+										name="house"
+										class="form-control"
+										required="true"
+										type="select"
+										placeholder="Select house"
+									>
+										<% for(let house of house_list) {%> <% if (apartment !=
+										false) {%> <% if(house._id.toString() ==
+										apartment.house._id.toString()) {%>
+										<option value="<%=house._id%>" selected>
+											<%= house.address%>
+										</option>
+										<% } else {%>
+										<option value="<%=house._id%>"><%= house.address%></option>
+										<% }%> <% } else {%>
+										<option value="<%=house._id%>"><%= house.address%></option>
+										<% }%> <%}%>
+									</select>
+								</div>
+								<button class="btn btn-primary" type="submit">Submit</button>
+							</form>
+							<br />
+						</div>
+					</div>
+				</main>
+			</div>
+		</div>
+		<!-- Optional JavaScript -->
+		<!-- Popper.js first, then CoreUI JS -->
+		<script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+		<script>
+			let alertList = document.querySelectorAll('.alert');
+			alertList.forEach(function (alert) {
+				setTimeout(() => {
+					new coreui.Alert(alert).close();
+				}, 3000);
+			});
+		</script>
+	</body>
+</html>
+
+<!-- this is where it changes -->

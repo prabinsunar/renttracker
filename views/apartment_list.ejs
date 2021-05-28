@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- CoreUI CSS -->
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css"
+		/>
+		<title><%= title %></title>
+	</head>
+	<body class="c-app">
+		<div
+			class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show"
+			id="sidebar"
+		>
+			<%- include('partials/sidebar.ejs')%>
+		</div>
+		<div class="c-wrapper c-fixed-components">
+			<header
+				class="c-header c-header-dark c-header-fixed c-header-with-subheader"
+			>
+				<%- include('partials/header.ejs')%>
+			</header>
+			<div class="c-body">
+				<main class="c-main">
+					<div class="container-fluid">
+						<div class="fade-in">
+							<h2><%= title%></h2>
+
+							<div class="card-columns">
+								<%if(apartment_list.length > 0) {%> <% for(const apartment of
+								apartment_list) { %>
+								<div
+									class="card text-center bg-light border-dark mb-3"
+									style="width: 18rem"
+								>
+									<div class="card-body">
+										<h5 class="card-text">
+											Unit <%= apartment.unit_no %>, <%=
+											apartment.house.address%>
+										</h5>
+										<hr />
+										<a href="<%= apartment.url%>" class="btn btn-success"
+											>Details</a
+										>
+									</div>
+								</div>
+								<% } %> <%}else{%>
+								<p>No apartment being created yet.</p>
+								<%}%>
+							</div>
+						</div>
+					</div>
+				</main>
+			</div>
+		</div>
+		<!-- Optional JavaScript -->
+		<!-- Popper.js first, then CoreUI JS -->
+		<script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+	</body>
+</html>
+
+<!-- this is where it changes -->

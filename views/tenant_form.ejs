@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- CoreUI CSS -->
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/coreui/dist/css/coreui.min.css"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/@coreui/icons@2.0.0-beta.3/css/all.min.css"
+		/>
+		<title><%= title %></title>
+	</head>
+	<body class="c-app">
+		<div
+			class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show"
+			id="sidebar"
+		>
+			<%- include('partials/sidebar.ejs')%>
+		</div>
+		<div class="c-wrapper c-fixed-components">
+			<header
+				class="c-header c-header-dark c-header-fixed c-header-with-subheader"
+			>
+				<%- include('partials/header.ejs')%>
+			</header>
+
+			<div class="c-body">
+				<main class="c-main">
+					<div class="container-fluid">
+						<div class="fade-in">
+							<div><%- include('error.ejs')%></div>
+							<h1><%= title%></h1>
+
+							<form action="" method="POST">
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input
+										class="form-control"
+										name="name"
+										type="text"
+										value="<%= tenant ? tenant.name : '' %>"
+										required="true"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="phone">Phone</label>
+									<input
+										class="form-control"
+										name="phone"
+										type="number"
+										value="<%= tenant ? tenant.phone : '' %>"
+										required="true"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="email">Email</label>
+									<input
+										class="form-control"
+										name="email"
+										type="email"
+										value="<%= tenant ? tenant.email : '' %>"
+										required="true"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="movedin_date">Moved in date (MM/DD/YYYY):</label>
+									<input
+										type="date"
+										class="form-control"
+										name="movedin_date"
+										value="<%= tenant ? tenant.form_occupancy_date : date %>"
+										required="true"
+									/>
+								</div>
+								<div class="form-group">
+									<label for="apartment_occupied">Apartment</label>
+									<select
+										name="apartment_occupied"
+										class="form-control"
+										required="true"
+										type="select"
+										placeholder="Select apartment"
+									>
+										<% for(let apartment of apartment_list) {%> <% if (tenant !=
+										false) {%> <%
+										if(tenant.apartment_occupied._id==apartment._id.toString() )
+										{%>
+										<option value="<%=apartment._id%>" selected>
+											<%= apartment.unit_no%>, <%= apartment.house.address%>
+										</option>
+										<% } else {%>
+										<option value="<%=apartment._id%>">
+											<%= apartment.unit_no%>, <%= apartment.house.address%>
+										</option>
+										<%}%> <% } else {%>
+										<option value="<%=apartment._id%>">
+											<%= apartment.unit_no%>, <%= apartment.house.address%>
+										</option>
+										<% }%> <%}%>
+									</select>
+								</div>
+								<button class="btn btn-primary" type="submit">Submit</button>
+							</form>
+							<br />
+						</div>
+					</div>
+				</main>
+			</div>
+		</div>
+		<!-- Optional JavaScript -->
+		<!-- Popper.js first, then CoreUI JS -->
+		<script src="https://unpkg.com/@coreui/coreui/dist/js/coreui.bundle.min.js"></script>
+		<script>
+			let alertList = document.querySelectorAll('.alert');
+			alertList.forEach(function (alert) {
+				setTimeout(() => {
+					new coreui.Alert(alert).close();
+				}, 3000);
+			});
+		</script>
+	</body>
+</html>
+
+<!-- this is where it changes -->
