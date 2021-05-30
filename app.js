@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
+const deleteallMiddleware = require('./db-auto');
 
 const url = process.env.MONGODB_URL;
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
@@ -32,7 +33,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: true }));
 app.use(flash());
-
 app.use(router);
 
 app.listen(PORT, () => {
