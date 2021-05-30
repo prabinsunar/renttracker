@@ -8,7 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 
-const url = process.env.MONGODB_URL;
+const url = 'mongodb+srv://prabinsunar:prabinsunar989@cluster0.d8zub.mongodb.net/renttracker?retryWrites=true&w=majority';
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
 
 const db = mongoose.connection;
@@ -22,7 +22,7 @@ app.set('view engine', 'ejs');
 
 app.use(
 	session({
-		secret: process.env.SECRET,
+		secret: 'incarceration',
 		resave: false,
 		saveUninitialized: true,
 	})

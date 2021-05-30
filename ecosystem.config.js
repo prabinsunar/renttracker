@@ -6,7 +6,7 @@ module.exports = {
   deploy: {
     production: {
       user: 'ubuntu',
-      host: 'ec2-18-222-51-160.us-east-2.compute.amazonaws.com',
+      host: 'ec2-3-18-254-103.us-east-2.compute.amazonaws.com',
       key: '~/.ssh/rent-tracker.pem',
       ref: 'origin/main',
       repo: 'https://github.com/prabinsunar/renttracker.git',
