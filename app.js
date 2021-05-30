@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 3000;
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
-const deleteallMiddleware = require('./db-auto');
 
 const url = 'mongodb+srv://prabinsunar:prabinsunar989@cluster0.d8zub.mongodb.net/renttracker?retryWrites=true&w=majority';
 mongoose.connect(url, { useUnifiedTopology: true, useNewUrlParser: true });
